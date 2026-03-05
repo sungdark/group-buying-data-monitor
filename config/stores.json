@@ -1,0 +1,44 @@
+{
+  "dianping": [
+    {
+      "id": "12345678",
+      "name": "测试餐厅",
+      "url": "https://www.dianping.com/shop/12345678"
+    }
+  ],
+  "douyin": [
+    {
+      "id": "12345678",
+      "name": "测试餐厅",
+      "url": "https://www.douyin.com/shop/12345678"
+    }
+  ],
+  "amap": [
+    {
+      "id": "B000A00001",
+      "name": "测试餐厅",
+      "url": "https://ditu.amap.com/poi/B000A00001"
+    }
+  ],
+  "meituan": [
+    {
+      "id": "12345678",
+      "name": "测试餐厅",
+      "url": "https://waimai.meituan.com/shop/12345678"
+    }
+  ],
+  "eleme": [
+    {
+      "id": "12345678",
+      "name": "测试餐厅",
+      "url": "https://ele.me/shop/12345678"
+    }
+  ],
+  "jd": [
+    {
+      "id": "12345678",
+      "name": "测试餐厅",
+      "url": "https://waimai.jd.com/shop/12345678"
+    }
+  ]
+}

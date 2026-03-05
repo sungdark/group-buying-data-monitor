@@ -1,0 +1,41 @@
+{
+  "name": "group-buying-data-monitor",
+  "version": "1.0.0",
+  "description": "OpenClaw Skill for real-time group buying and food delivery data monitoring",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/test.js",
+    "start": "node src/index.js",
+    "schedule": "node src/scheduler.js"
+  },
+  "keywords": [
+    "openclaw",
+    "skill",
+    "data-monitoring",
+    "group-buying",
+    "food-delivery",
+    "web-scraping"
+  ],
+  "author": "OpenClaw",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0-rc.12",
+    "puppeteer": "^21.0.0",
+    "node-cron": "^3.0.3",
+    "dotenv": "^16.3.1",
+    "fs-extra": "^11.1.1",
+    "moment-timezone": "^0.5.43",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fengking-li/group-buying-data-monitor.git"
+  }
+}
