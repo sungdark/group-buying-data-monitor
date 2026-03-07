@@ -1,0 +1,150 @@
+{
+  "name": "group-buying-data-monitor",
+  "version": "1.0.0",
+  "description": "团购+外卖实时自动数据监测系统，支持大众点评、抖音来客、高德地图、美团、饿了么、京东外卖等平台数据抓取与飞书推送",
+  "categories": ["data-monitoring", "group-buying", "food-delivery", "e-commerce"],
+  "author": "OpenClaw",
+  "license": "MIT",
+  "homepage": "https://github.com/fengking-li/group-buying-data-monitor",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fengking-li/group-buying-data-monitor.git"
+  },
+  "keywords": [
+    "openclaw",
+    "skill",
+    "data-monitoring",
+    "group-buying",
+    "food-delivery",
+    "dianping",
+    "douyin",
+    "amap",
+    "meituan",
+    "eleme",
+    "jd-waimai",
+    "feishu"
+  ],
+  "main": "src/index.js",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0-rc.12",
+    "puppeteer": "^21.0.0",
+    "node-cron": "^3.0.3",
+    "dotenv": "^16.3.0",
+    "fs-extra": "^11.1.0",
+    "moment-timezone": "^0.5.43"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node src/index.js start",
+    "init": "node src/index.js init",
+    "run": "node src/index.js run",
+    "status": "node src/index.js status",
+    "stop": "node src/index.js stop"
+  },
+  "bin": {
+    "group-buying-monitor": "./src/index.js"
+  },
+  "openclaw": {
+    "type": "skill",
+    "version": "1.0.0",
+    "permissions": [
+      "network",
+      "file-system",
+      "browser",
+      "notification"
+    ],
+    "env": [
+      {
+        "name": "FEISHU_WEBHOOK_URL",
+        "description": "飞书机器人Webhook地址",
+        "required": true
+      },
+      {
+        "name": "DATA_DIR",
+        "description": "数据存储目录",
+        "default": "./data/"
+      },
+      {
+        "name": "LOG_DIR",
+        "description": "日志存储目录",
+        "default": "./logs/"
+      },
+      {
+        "name": "MAX_RETRY_COUNT",
+        "description": "最大重试次数",
+        "default": "3"
+      },
+      {
+        "name": "REQUEST_TIMEOUT",
+        "description": "请求超时时间(ms)",
+        "default": "30000"
+      },
+      {
+        "name": "RATE_LIMIT_DELAY",
+        "description": "请求间隔时间(ms)",
+        "default": "2000"
+      },
+      {
+        "name": "HTTP_PROXY",
+        "description": "HTTP代理地址",
+        "required": false
+      },
+      {
+        "name": "HTTPS_PROXY",
+        "description": "HTTPS代理地址",
+        "required": false
+      }
+    ],
+    "commands": [
+      {
+        "name": "start",
+        "description": "启动数据监测系统",
+        "usage": "group-buying-monitor start"
+      },
+      {
+        "name": "init",
+        "description": "初始化系统配置",
+        "usage": "group-buying-monitor init"
+      },
+      {
+        "name": "run",
+        "description": "立即执行一次数据抓取",
+        "usage": "group-buying-monitor run"
+      },
+      {
+        "name": "status",
+        "description": "查看系统运行状态",
+        "usage": "group-buying-monitor status"
+      },
+      {
+        "name": "stop",
+        "description": "停止数据监测系统",
+        "usage": "group-buying-monitor stop"
+      }
+    ],
+    "schedules": [
+      {
+        "name": "review-monitor",
+        "description": "评价平台数据监测",
+        "cron": "0 */2 10-20 * * *",
+        "timezone": "Asia/Shanghai",
+        "command": "run"
+      },
+      {
+        "name": "delivery-monitor",
+        "description": "外卖平台数据监测",
+        "cron": "0 */30 10-12,17-19 * * *",
+        "timezone": "Asia/Shanghai",
+        "command": "run"
+      },
+      {
+        "name": "health-check",
+        "description": "系统健康检查",
+        "cron": "0 12 * * *",
+        "timezone": "Asia/Shanghai",
+        "command": "status"
+      }
+    ]
+  }
+}

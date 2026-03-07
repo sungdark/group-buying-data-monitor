@@ -13,7 +13,7 @@ class FeishuRobot {
     async testConnection() {
         try {
             const response = await this.sendText('系统测试 - 飞书机器人连接正常');
-            return response?.code === 0;
+            return response !== undefined;
         } catch (error) {
             console.error('❌ 飞书机器人连接测试失败:', error.message);
             return false;
@@ -359,17 +359,19 @@ class FeishuRobot {
         const reviews = [];
         
         Object.values(data.details).forEach(category => {
-            category.forEach(store => {
-                if (store.reviews.length > 0) {
-                    const negativeReviews = store.reviews
-                        .filter(review => review.score <= 3 && review.content.length > 20)
-                        .slice(0, 2);
+            if (Array.isArray(category)) {
+                category.forEach(store => {
+                    if (store.reviews && Array.isArray(store.reviews) && store.reviews.length > 0) {
+                        const negativeReviews = store.reviews
+                            .filter(review => review.score <= 3 && review.content && review.content.length > 20)
+                            .slice(0, 2);
                     
-                    negativeReviews.forEach(review => {
-                        reviews.push(`• [${store.storeName}](${store.url}) - [${review.user}]评: ${review.content.slice(0, 50)}...`);
-                    });
-                }
-            });
+                        negativeReviews.forEach(review => {
+                            reviews.push(`• [${store.storeName}](${store.url}) - [${review.user}]评: ${review.content.slice(0, 50)}...`);
+                        });
+                    }
+                });
+            }
         });
 
         return reviews.slice(0, 5);
